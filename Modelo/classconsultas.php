@@ -4,7 +4,7 @@
 
     class consultas{
 
-        public function insertarNuevoUsuario($nombre, $a_paterno,$a_materno,$municipio,$ciudad,$pais,$correo,$contras,$contras2,$f_nacimiento){
+        public function insertarNuevoUsuario($nombre, $a_paterno,$a_materno,$municipio,$ciudad,$pais,$genero,$correo,$contras,$contras2,$f_nacimiento){
             date_default_timezone_set("America/Mexico_City");
 $fecha_hora = date("Y-m-d H:i:s");
 $fecha = date("Y-m-d");
@@ -12,7 +12,7 @@ $fecha = date("Y-m-d");
             include 'SED.php';
             $modelo = new conexion();
             $conexion = $modelo->get_conexion();
-            $sql="INSERT INTO usuarios (nombre,a_paterno,a_materno,contrasena,correo,f_nacimiento,municipio,ciudad,pais,fecha_regis)VALUES(:nombre,:a_paterno,:a_materno,:contras,:correo,:f_nacimiento,:municipio,:ciudad,:pais,:fecha_regis)";
+            $sql="INSERT INTO usuarios (nombre,a_paterno,a_materno,contrasena,correo,f_nacimiento,municipio,ciudad,pais,genero,fecha_regis)VALUES(:nombre,:a_paterno,:a_materno,:contras,:correo,:f_nacimiento,:municipio,:ciudad,:pais,:genero,:fecha_regis)";
             $claveE=SED::encryption($contras);
             $statement=$conexion->prepare($sql);
 
@@ -27,7 +27,7 @@ $fecha = date("Y-m-d");
                <strong>ERROR!&nbsp;</strong>No se registro.
              </div>';
            } else {
-            $statement->execute(array(":nombre"=>$nombre,":a_paterno"=>$a_paterno,":a_materno"=>$a_materno,":contras"=>$claveE,":correo"=>$correo,":f_nacimiento"=>$f_nacimiento,":municipio"=>$municipio,":ciudad"=>$ciudad,":pais"=>$pais,":fecha_regis"=>$fecha_hora));
+            $statement->execute(array(":nombre"=>$nombre,":a_paterno"=>$a_paterno,":a_materno"=>$a_materno,":contras"=>$claveE,":correo"=>$correo,":f_nacimiento"=>$f_nacimiento,":municipio"=>$municipio,":ciudad"=>$ciudad,":pais"=>$pais,":genero"=>$genero,":fecha_regis"=>$fecha_hora));
                return '<div class="alert alert-success alert-dismissible fade show">
                <button type="button" class="close" data-dismiss="alert">&times;</button>
                <strong>Registro Exitoso!</strong></div>';
@@ -122,68 +122,6 @@ header("Location: ../index.php");
 
 
         }
-       
-    public function nombreTemporada(){
-        $rows = null;
-        $modelo = new conexion();
-        $conexion = $modelo->get_conexion();
-        $sql = "SELECT * FROM temporadas ORDER BY idtemporada DESC LIMIT 1";
-        $statement = $conexion->prepare($sql);
-        $statement->execute();
-        while ($result = $statement->fetch()){
-            $rows[] = $result;
-        }
-        return $rows;
-    }
-    public function ultimaJornada(){
-        $rows = null;
-        $modelo = new conexion();
-        $conexion = $modelo->get_conexion();
-        $sql = "SELECT idjornada,nombre FROM `jornadas` WHERE idcategoria=1 ORDER BY idjornada DESC LIMIT 1";
-        $statement = $conexion->prepare($sql);
-        $statement->execute();
-        while ($result = $statement->fetch()){
-            $rows[] = $result;
-        }
-        return $rows;
-    }
-    public function fechasPartidos($id_jornada){
-        $rows = null;
-        $modelo = new conexion();
-        $conexion = $modelo->get_conexion();
-        $sql = "SELECT fecha FROM partidos WHERE idtemporada=1 AND idjornada=12 GROUP BY fecha ORDER BY fecha; ";
-        $statement = $conexion->prepare($sql);
-        $statement->execute();
-        while ($result = $statement->fetch()){
-            $rows[] = $result;
-        }
-        return $rows;
-    }
-    public function encuentros($id_jornada,$fecha){
-        $rows = null;
-        $modelo = new conexion();
-        $conexion = $modelo->get_conexion();
-        $sql = "SELECT equipo1,equipo2,anotaciones1,anotaciones2,horario FROM partidos WHERE idtemporada=1 AND idjornada=$id_jornada AND fecha='$fecha' ORDER BY fecha,horario";
-        $statement = $conexion->prepare($sql);
-        $statement->execute();
-        while ($result = $statement->fetch()){
-            $rows[] = $result;
-        }
-        return $rows;
-    }
-
-    public function hacerRol($jornada,$nombre,$categoria,$equipo1,$equipo2,$horario,$fecha){
-        $modelo = new conexion();
-        $conexion = $modelo->get_conexion();
-        $sql = "INSERT INTO `partidos` (`idpartido`, `idtemporada`, `idjornada`, `equipo1`, `equipo2`, `anotaciones1`, `anotaciones2`, `horario`, `fecha`, `observaciones`) VALUES (NULL, '$temporada', '$jornada', '$equipo1', '$equipo2', NULL, NULL, '$horario', '$fecha', NULL);";
-        $conn->exec($sql);
-       if(!$conn){
-           return "Error al crear el registro";
-       } else {
-           $conn->execute();
-           return " registro creado correctamente";
-       }
-    }
 }
 
 ?>

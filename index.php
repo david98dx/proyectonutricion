@@ -37,6 +37,7 @@ echo "Por favor completa los campos";
 <title>INTSOFT</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="iconos/logoicono.png" type="imagepng" sizes="16x16">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Karma">
@@ -227,6 +228,7 @@ span.psw {
     $municipio=htmlentities($_POST["municipio"]);
     $ciudad=htmlentities($_POST["ciudad"]);
     $pais=htmlentities($_POST["pais"]);
+    $genero=htmlentities($_POST["genero"]);
     $correo=htmlentities($_POST["correo"]);
     $contras=htmlentities($_POST["contras"]);
     $contras2=htmlentities($_POST["contras2"]);
@@ -236,7 +238,7 @@ span.psw {
 		
 		if($contras!=$contras2){
 			echo '<div class="alert alert-danger alert-dismissible fade show">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
     <strong>ERROR!&nbsp;</strong> Las contraseñas no coinciden.
   </div>';
 		
@@ -246,7 +248,7 @@ span.psw {
 			try{
     if(strlen($nombre) > 0 && strlen($a_paterno) > 0 && strlen($a_materno) > 0 && strlen($correo)>0){
       $consultas = new consultas();
-      $mensaje = $consultas->insertarNuevoUsuario($nombre,$a_paterno,$a_materno,$municipio,$ciudad,$pais,$correo,$contras,$contras2,$f_nacimiento);
+      $mensaje = $consultas->insertarNuevoUsuario($nombre,$a_paterno,$a_materno,$municipio,$ciudad,$pais,$genero,$correo,$contras,$contras2,$f_nacimiento);
       echo $mensaje;
   } else{
     echo "Por favor completa los campos";
@@ -286,6 +288,14 @@ span.psw {
       <input type="text" name="ciudad" required>
       <label for="psw-repeat"><b>Pais</b></label>
       <input type="text" name="pais" required>
+
+      <label for="psw-repeat"><b>Genero</b></label>
+      <select name="genero" id="sexo" required>
+        <option value=""></option>
+        <option value="M">MASCULINO</option>
+        <option value="F">FEMENINO</option>
+        <option value="N">OTRO</option>
+      </select>
       
       <p>Al crear una cuenta, acepta nuestras  <a href="#" style="color:dodgerblue">Términos y Privacidad </a>.</p>
 

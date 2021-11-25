@@ -16,11 +16,158 @@ $id_sesion=$_SESSION["sesion"];
 <title>INTSOFT</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="icon" href="iconos/logoicono.png" type="imagepng" sizes="16x16">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+function publicar(id_miembros,id_grupo) {
+     var parametros = {"id_miembros":id_miembros,"id_grupo":id_grupo};
+$.ajax({
+    data:parametros,
+    url:'aceptar.php',
+    type: 'post',
+    beforeSend: function () {
+        $("#resultado").html("Procesando, espere por favor");
+    },
+    success: function (response) {   
+        $("#enviar"+id_miembros).css("display", "none");
+        $("#cancelar"+id_miembros).css("display", "none");
+        location.reload();
+    }
+});
+}
+
+</script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
+
+
+body {font-family: Arial, Helvetica, sans-serif;}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+/* Set a style for all buttons */
+.modal button {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+/* Extra styles for the cancel button */
+.modal .cancelbtn {
+  width: auto;
+  padding: 10px 18px;
+  background-color: #f44336;
+}
+
+/* Center the image and position the close button */
+.imgcontainer {
+  text-align: center;
+  margin: 24px 0 12px 0;
+  position: relative;
+}
+
+img.avatar {
+  width: 40%;
+  border-radius: 50%;
+}
+
+.container {
+  padding: 16px;
+}
+
+span.psw {
+  float: right;
+  padding-top: 16px;
+}
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 3; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+  border: 1px solid #888;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button (x) */
+.close {
+  position: absolute;
+  right: 25px;
+  top: 0;
+  color: #000;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: red;
+  cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+  -webkit-animation: animatezoom 0.6s;
+  animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+  from {-webkit-transform: scale(0)} 
+  to {-webkit-transform: scale(1)}
+}
+  
+@keyframes animatezoom {
+  from {transform: scale(0)} 
+  to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+  span.psw {
+     display: block;
+     float: none;
+  }
+  .cancelbtn {
+     width: 100%;
+  }
+}
+textarea{
+  width: 100%;
+  height:80px;
+}
 </style>
 <body class="w3-light-grey w3-content" style="max-width:1600px">
 
@@ -30,14 +177,14 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
     <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
       <i class="fa fa-remove"></i>
     </a>
-    <img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:45%;" class="w3-round"><br><br>
+    <img src="iconos/100222967.png" style="width:45%;" class="w3-round"><br><br>
     <h4><b>PERFIL</b></h4>
     <p class="w3-text-grey"><?php echo $_SESSION["usuario"]; ?></p>
   </div>
   <div class="w3-bar-block">
-    <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a> 
-    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>ABOUT</a> 
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+    <a href="#portfolio" onclick="w3_close()" class="w3-bar-item w3-button w3-padding w3-text-teal"><i class="fa fa-th-large fa-fw w3-margin-right"></i>INICIO</a> 
+    <a href="#about" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-user fa-fw w3-margin-right"></i>MI PERFIL</a> 
+    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-envelope fa-fw w3-margin-right"></i>DATOS PERSONALES</a>
     <a href="Controlador/cerrar.php" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i class="fa fa-window-close fa-fw w3-margin-right"></i>CERRAR SESION</a>
     
   </div>
@@ -59,19 +206,45 @@ body,h1,h2,h3,h4,h5,h6 {font-family: "Raleway", sans-serif}
 
   <!-- Header -->
   <header id="portfolio">
-    <a href="#"><img src="https://www.w3schools.com/w3images/avatar_g2.jpg" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+    <a href="#"><img src="iconos/100222967.png" style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
     <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i class="fa fa-bars"></i></span>
     <div class="w3-container">
-    <h1><b>My Perfil</b></h1>
+    <h1><b>PUBLICACIONES</b></h1>
     <div class="w3-section w3-bottombar w3-padding-16">
-      <span class="w3-margin-right">Filter:</span> 
-      <button class="w3-button w3-black">ALL</button>
-      <button class="w3-button w3-white"><i class="fa fa-diamond w3-margin-right"></i>Design</button>
-      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-photo w3-margin-right"></i>Photos</button>
-      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-map-pin w3-margin-right"></i>Art</button>
+      <span class="w3-margin-right">Categorias:</span> 
+      <button class="w3-button w3-black">TODO</button>
+      <button class="w3-button w3-white"><i class="fa fa-cutlery w3-margin-right"></i>Platillos</button>
+      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-commenting w3-margin-right"></i>Articulos</button>
+      <button class="w3-button w3-white w3-hide-small"><i class="fa fa-users w3-margin-right"></i>Recomendaciones</button>
+      <button class="w3-button w3-white w3-hide-small" onclick="document.getElementById('id01_publicacion').style.display='block'"><i class="fa fa-plus w3-margin-right"></i></button>
     </div>
     </div>
   </header>
+  <div id="id01_publicacion" class="modal">
+  
+  <form class="modal-content animate" action="Controlador/crear_publicacion.php" method="post" enctype="multipart/form-data">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01_publicacion').style.display='none'" class="close" title="Close Modal">&times;</span>
+    </div>
+
+    <div class="container">
+    <button class="w3-button w3-white w3-hide-small" onclick="addUrl()" style="width:auto;"><i class="fa fa-plus w3-margin-right">URL</i></button>
+    <button class="w3-button w3-white w3-hide-small" onclick="addInput()" style="width:auto;"><i class="fa fa-plus w3-margin-right">SUBIR IMAGEN</i></button>
+    <div id="inputs"></div>
+      <label for="uname"><b>Titulo</b></label>
+      <input type="text" placeholder="Titulo:" name="titulo" required>
+      <label for="psw"><b>Descripcion</b></label>
+      <textarea id="w3review" name="message_post" placeholder="Escribe aqui..." maxlength="900" autofocus required>
+</textarea>
+      <button type="submit">PUBLICAR</button>
+    </div>
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01_publicacion').style.display='none'" class="cancelbtn">Cancelar</button>
+    </div>
+  </form>
+</div>
+
+
   
   <!-- First Photo Grid-->
   <div class="w3-row-padding">
@@ -316,6 +489,34 @@ function w3_open() {
 function w3_close() {
     document.getElementById("mySidebar").style.display = "none";
     document.getElementById("myOverlay").style.display = "none";
+}
+
+// Get the modal
+var modal = document.getElementById('id01_publicacion');
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+
+function addUrl(){
+  var capa = document.getElementById("inputs");
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "text");
+  x.setAttribute("name", "url");
+  x.setAttribute("placeholder", "Escribe URL de tu imagen");
+  x.required = 'true';
+  capa.appendChild(x);
+}
+function addInput(){
+  var capa = document.getElementById("inputs");
+  var x = document.createElement("INPUT");
+  x.setAttribute("type", "file");
+  x.setAttribute("name", "image");
+  x.required = 'true';
+  capa.appendChild(x);
 }
 </script>
 
