@@ -12,7 +12,7 @@ $semana = date("W");
 $id_usuario=$_SESSION["id"];
 
 
-
+$url=$_POST["url"];
 $titulo=$_POST["titulo"];
 $descripcion=$_POST["message_post"];
 
@@ -22,7 +22,7 @@ $descripcion=$_POST["message_post"];
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    
 
-      if(!isset($_POST["url"])){
+      if(!isset($url)){
         
         $ruta_provisional = $_FILES["image"]["tmp_name"];
         $nombre_i = $_FILES["image"]["name"];
