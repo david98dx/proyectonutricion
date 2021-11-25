@@ -1,7 +1,6 @@
 <?php 
 session_start();
 $id_sesion=$_SESSION["sesion"];
-$id_usuario=$_SESSION["id"];
  require_once('Modelo/classconexion.php');
  require_once('Modelo/classconsultas.php');
  require_once ('Controlador/cargar.php');
@@ -179,7 +178,7 @@ textarea{
       <i class="fa fa-remove"></i>
     </a>
     <img src="iconos/100222967.png" style="width:45%;" class="w3-round"><br><br>
-    <h4><b>PERFIL</b></h4>
+    <h4><b>PERFIL ADMINISTRADOR</b></h4>
     <p class="w3-text-grey"><?php echo $_SESSION["usuario"]; ?></p>
   </div>
   <div class="w3-bar-block">
@@ -237,8 +236,9 @@ textarea{
       <label for="psw"><b>Descripcion</b></label>
       <textarea id="w3review" name="message_post" placeholder="Escribe aqui..." maxlength="900" autofocus required>
 </textarea>
-<select name="nivel" id="">
-        <option value="1">PRIVADO</option>
+<label for="uname"><b>NIVEL</b></label>
+      <select name="nivel" id="">
+        <option value="3">PUBLICO</option>
       </select>
       <button type="submit">PUBLICAR</button>
     </div>
@@ -249,118 +249,155 @@ textarea{
 </div>
 
 
-
-<?php
-
-
-
-try {
-   
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $conn->exec("SET CHARACTER SET UTF8");
   
-  
-  
-  
-    echo '<div class="w3-row-padding">';
-$sql = "SELECT * FROM publicaciones  WHERE estado=1 ORDER BY id_publicacion DESC";
-    foreach($conn->query($sql) as $row) {
-      echo ' <div class="w3-third w3-container w3-margin-bottom">
-      <img src="'.$row['img_online'].'" alt="Norway" style="width:100%" class="w3-hover-opacity">
+  <!-- First Photo Grid-->
+  <div class="w3-row-padding">
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="https://www.w3schools.com/w3images/mountains.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
       <div class="w3-container w3-white">
-        <p><b>'.$row['titulo'].'</b></p>
-        <p>'.$row['descripcion'].'</p>
+        <p><b>Lorem Ipsum</b></p>
+        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
       </div>
-    </div>';
-    }
-  echo '</div>';
+    </div>
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="https://www.w3schools.com/w3images/lights.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Lorem Ipsum</b></p>
+        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <img src="https://www.w3schools.com/w3images/nature.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Lorem Ipsum</b></p>
+        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Second Photo Grid-->
+  <div class="w3-row-padding">
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="https://www.w3schools.com/w3images/p1.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Lorem Ipsum</b></p>
+        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container w3-margin-bottom">
+      <img src="https://www.w3schools.com/w3images/p2.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Lorem Ipsum</b></p>
+        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      </div>
+    </div>
+    <div class="w3-third w3-container">
+      <img src="https://www.w3schools.com/w3images/p3.jpg" alt="Norway" style="width:100%" class="w3-hover-opacity">
+      <div class="w3-container w3-white">
+        <p><b>Lorem Ipsum</b></p>
+        <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      </div>
+    </div>
+  </div>
 
-}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-$conn = null;
-?>
+  <!-- Pagination -->
+  <div class="w3-center w3-padding-32">
+    <div class="w3-bar">
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">«</a>
+      <a href="#" class="w3-bar-item w3-black w3-button">1</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">2</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">3</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">4</a>
+      <a href="#" class="w3-bar-item w3-button w3-hover-black">»</a>
+    </div>
+  </div>
+
   <!-- Images of Me -->
   <div class="w3-row-padding w3-padding-16" id="about">
     <div class="w3-col m6">
-      <img src="https://www.nationalgeographic.com.es/medio/2018/02/27/playa-de-isuntza-lekeitio__1280x720.jpg" alt="Me" style="width:100%">
+      <img src="https://www.w3schools.com/w3images/avatar_g.jpg" alt="Me" style="width:100%">
     </div>
     <div class="w3-col m6">
-      <img src="https://viajes.nationalgeographic.com.es/medio/2020/04/15/yosemite_63829a27_1200x630.jpg" alt="Me" style="width:100%">
+      <img src="https://www.w3schools.com/w3images/me2.jpg" alt="Me" style="width:100%">
     </div>
   </div>
 
   <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-    <h4><b>Acerca de mi.</b></h4>
-    <p>Soy ingeniero industrial apasionado por la productividad. Tengo experiencia en gestión de operaciones, coordinación de grupos de trabajo y proyectos de mejora. He trabajado en la industria farmacéutica y en la cervecera. Estoy interesado en la preservación del medio ambiente y por ello estoy comprometida con la eficiencia. Me importa contribuir a crear entornos laborales seguros para todos los colaboradores. Creo que generar sinergia en el equipo de trabajo es primordial para lograr los resultados #ColaborarAntesQueCompetir</p>
+    <h4><b>About Me</b></h4>
+    <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
     <hr>
     
-    <h4>Estudio antropométrico</h4>
+    <h4>Technical Skills</h4>
     <!-- Progress bars / Skills -->
-    <p>IMC</p>
+    <p>Photography</p>
     <div class="w3-grey">
       <div class="w3-container w3-dark-grey w3-padding w3-center" style="width:95%">95%</div>
     </div>
-    <p>JUVENTUD</p>
+    <p>Web Design</p>
     <div class="w3-grey">
       <div class="w3-container w3-dark-grey w3-padding w3-center" style="width:85%">85%</div>
     </div>
-    <p>AZUCAR EN LA SANGRE</p>
+    <p>Photoshop</p>
     <div class="w3-grey">
       <div class="w3-container w3-dark-grey w3-padding w3-center" style="width:80%">80%</div>
     </div>
     <p>
       <button class="w3-button w3-dark-grey w3-padding-large w3-margin-top w3-margin-bottom">
-        <i class="fa fa-download w3-margin-right"></i>Download Expediente Clinico
+        <i class="fa fa-download w3-margin-right"></i>Download Resume
       </button>
     </p>
     <hr>
     
-    <h4>RUTINAS DE EJERCICIO</h4>
+    <h4>How much I charge</h4>
     <!-- Pricing Tables -->
     <div class="w3-row-padding" style="margin:0 -16px">
       <div class="w3-third w3-margin-bottom">
         <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-black w3-xlarge w3-padding-32">Basico</li>
-          <li class="w3-padding-16">Marcha 3 minutos</li>
-          <li class="w3-padding-16">Talón 60 segundos</li>
-          <li class="w3-padding-16">Elevacion rodilla 20 segundos</li>
-          <li class="w3-padding-16">Giro hombros 20segundos</li>
-          
+          <li class="w3-black w3-xlarge w3-padding-32">Basic</li>
+          <li class="w3-padding-16">Web Design</li>
+          <li class="w3-padding-16">Photography</li>
+          <li class="w3-padding-16">1GB Storage</li>
+          <li class="w3-padding-16">Mail Support</li>
+          <li class="w3-padding-16">
+            <h2>$ 10</h2>
+            <span class="w3-opacity">per month</span>
+          </li>
           <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-teal w3-padding-large w3-hover-black">INICIAR</button>
+            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
           </li>
         </ul>
       </div>
       
       <div class="w3-third w3-margin-bottom">
         <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-        <li class="w3-black w3-xlarge w3-padding-32">Intermedio</li>
-          <li class="w3-padding-16">Salto en estrella 2 minutos</li>
-          <li class="w3-padding-16">Sentadillas 2 minutos</li>
-          <li class="w3-padding-16">Tap backs 2 minutos</li>
-          <li class="w3-padding-16">Burpees 2 minutos</li>
-          
+          <li class="w3-teal w3-xlarge w3-padding-32">Pro</li>
+          <li class="w3-padding-16">Web Design</li>
+          <li class="w3-padding-16">Photography</li>
+          <li class="w3-padding-16">50GB Storage</li>
+          <li class="w3-padding-16">Endless Support</li>
+          <li class="w3-padding-16">
+            <h2>$ 25</h2>
+            <span class="w3-opacity">per month</span>
+          </li>
           <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-teal w3-padding-large w3-hover-black">INICIAR</button>
+            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
           </li>
         </ul>
       </div>
       
       <div class="w3-third">
         <ul class="w3-ul w3-border w3-white w3-center w3-opacity w3-hover-opacity-off">
-          <li class="w3-black w3-xlarge w3-padding-32">Avanzado</li>
-          <li class="w3-padding-16">Triceps 2 minutos</li>
-          <li class="w3-padding-16">Piernas 1 minuto</li>
-          <li class="w3-padding-16">Sentarse contra la pared 1 Minuto</li>
-          <li class="w3-padding-16">Descensos 1 minuto</li>
-          
+          <li class="w3-black w3-xlarge w3-padding-32">Premium</li>
+          <li class="w3-padding-16">Web Design</li>
+          <li class="w3-padding-16">Photography</li>
+          <li class="w3-padding-16">Unlimited Storage</li>
+          <li class="w3-padding-16">Endless Support</li>
+          <li class="w3-padding-16">
+            <h2>$ 25</h2>
+            <span class="w3-opacity">per month</span>
+          </li>
           <li class="w3-light-grey w3-padding-24">
-            <button class="w3-button w3-teal w3-padding-large w3-hover-black">INICIAR</button>
+            <button class="w3-button w3-teal w3-padding-large w3-hover-black">Sign Up</button>
           </li>
         </ul>
       </div>
@@ -369,58 +406,15 @@ $conn = null;
   
   <!-- Contact Section -->
   <div class="w3-container w3-padding-large w3-grey">
-    <h4 id="contact"><b>Mi Informacion</b></h4>
+    <h4 id="contact"><b>Contact Me</b></h4>
     <div class="w3-row-padding w3-center w3-padding-24" style="margin:0 -16px">
       <div class="w3-third w3-dark-grey">
         <p><i class="fa fa-envelope w3-xxlarge w3-text-light-grey"></i></p>
-        <p><?php
-try {
-   
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $conn->exec("SET CHARACTER SET UTF8");
-  
-$sql = "SELECT correo FROM usuarios WHERE id_usuario=$id_usuario";
-    foreach($conn->query($sql) as $row) {
-      echo $row[0];
-    }
-  
-
-}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-$conn = null;
-?></p>
+        <p>email@email.com</p>
       </div>
       <div class="w3-third w3-teal">
         <p><i class="fa fa-map-marker w3-xxlarge w3-text-light-grey"></i></p>
-        <p><?php
-
-
-
-try {
-   
-  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  $conn->exec("SET CHARACTER SET UTF8");
-  
-$sql = "SELECT ciudad,pais FROM usuarios WHERE id_usuario=$id_usuario";
-    foreach($conn->query($sql) as $row) {
-      echo $row[0].",".$row[1];
-    }
-  
-
-}
-catch(PDOException $e)
-    {
-    echo $sql . "<br>" . $e->getMessage();
-    }
-$conn = null;
-?></p>
+        <p>Chicago, US</p>
       </div>
       <div class="w3-third w3-dark-grey">
         <p><i class="fa fa-phone w3-xxlarge w3-text-light-grey"></i></p>
@@ -430,58 +424,61 @@ $conn = null;
     <hr class="w3-opacity">
     <form action="/action_page.php" target="_blank">
       <div class="w3-section">
-        <label>Asunto</label>
+        <label>Name</label>
         <input class="w3-input w3-border" type="text" name="Name" required>
       </div>
       <div class="w3-section">
-        <label>Email de amigo</label>
+        <label>Email</label>
         <input class="w3-input w3-border" type="text" name="Email" required>
       </div>
       <div class="w3-section">
-        <label>Mensaje</label>
+        <label>Message</label>
         <input class="w3-input w3-border" type="text" name="Message" required>
       </div>
-      <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Enviar Message</button>
+      <button type="submit" class="w3-button w3-black w3-margin-bottom"><i class="fa fa-paper-plane w3-margin-right"></i>Send Message</button>
     </form>
   </div>
 
   <!-- Footer -->
   <footer class="w3-container w3-padding-32 w3-dark-grey">
+  <div class="w3-row-padding">
     <div class="w3-third">
       <h3>FOOTER</h3>
-      <p>La Secretaría de Salud Federal, a través de la Dirección General de Epidemiología emite el siguiente informe técnico referente a Coronavirus (COVID-19).</p>
-      <p>Secretaria de Salud <a href="https://www.gob.mx/salud/documentos/coronavirus-covid-19-comunicado-tecnico-diario-238449" target="_blank">VER</a></p>
+      <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
     </div>
   
     <div class="w3-third">
-      <h3>POSTS EN TENDENCIA</h3>
+      <h3>BLOG POSTS</h3>
       <ul class="w3-ul w3-hoverable">
         <li class="w3-padding-16">
-          <img src="https://www.fao.org/images/homepagelibraries/news/sofa-2021-pr.jpg?sfvrsn=e31060ad_15" class="w3-left w3-margin-right" style="width:50px">
-          <span class="w3-large">¿Está en riesgo nuestro suministro de alimentos?</span><br>
-          <span>FAO</span>
+          <img src="https://www.w3schools.com/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Lorem</span><br>
+          <span>Sed mattis nunc</span>
         </li>
         <li class="w3-padding-16">
-          <img src="https://www.fao.org/images/homepagelibraries/default-album/sdg-17.png" class="w3-left w3-margin-right" style="width:50px">
-          <span class="w3-large">La FAO y los Objetivos de Desarrollo Sostenible</span><br>
-          <span>FAO</span>
+          <img src="https://www.w3schools.com/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">Ipsum</span><br>
+          <span>Praes tinci sed</span>
         </li> 
       </ul>
     </div>
 
-    <div class="w3-third w3-serif">
-      <h3>POPULARES</h3>
+    <div class="w3-third">
+      <h3>POPULAR TAGS</h3>
       <p>
-        <span class="w3-tag w3-black w3-margin-bottom">HABITOS</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">CARNES</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">QUESOS</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">SUEÑO</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">DESAYUNO</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">EJERCICIO</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">AGUA</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">AZUCARES</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">HARINAS</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">PAN DULCE</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">REFRESCOS</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">COMIDA RAPIDA</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">SUEÑO</span> 
+        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">London</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">IKEA</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">NORWAY</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">DIY</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Baby</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Family</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">News</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Clothing</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Shopping</span>
+        <span class="w3-tag w3-grey w3-small w3-margin-bottom">Sports</span> <span class="w3-tag w3-grey w3-small w3-margin-bottom">Games</span>
       </p>
     </div>
+
+  </div>
   </footer>
   
-  <div class="w3-black w3-center w3-padding-24">Powered by <a href="" title="W3.CSS" target="_blank" class="w3-hover-opacity">EQUIPO 1</a></div>
+  <div class="w3-black w3-center w3-padding-24">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></div>
 
 <!-- End page content -->
 </div>

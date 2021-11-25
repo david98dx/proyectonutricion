@@ -19,7 +19,7 @@ if(strlen($email) > 0 && strlen($psw) > 0){
     $ingreso=$consultas->iniciarSesion($email,$psw);
     
     if($ingreso>0){
-      header('Location: inicio.php');
+      
     }else{
       echo "Error/Acceso Denegado";
     }
@@ -318,72 +318,73 @@ span.psw {
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
 
-  <!-- First Photo Grid-->
-  <div class="w3-row-padding w3-padding-16 w3-center" id="food">
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/sandwich.jpg" alt="Sandwich" style="width:100%">
-      <h3>El Sandwich perfecto</h3>
-      <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/steak.jpg" alt="Steak" style="width:100%">
-      <h3>Let Me Tell You About This Steak</h3>
-      <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/cherries.jpg" alt="Cherries" style="width:100%">
-      <h3>Cherries, interrupted</h3>
-      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-      <p>What else?</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/wine.jpg" alt="Pasta and Wine" style="width:100%">
-      <h3>Once Again, Robust Wine and Vegetable Pasta</h3>
-      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-  </div>
-  
-  <!-- Second Photo Grid-->
-  <div class="w3-row-padding w3-padding-16 w3-center">
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/popsicle.jpg" alt="Popsicle" style="width:100%">
-      <h3>All I Need Is a Popsicle</h3>
-      <p>Lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/salmon.jpg" alt="Salmon" style="width:100%">
-      <h3>Salmon For Your Skin</h3>
-      <p>Once again, some random text to lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/sandwich.jpg" alt="Sandwich" style="width:100%">
-      <h3>The Perfect Sandwich, A Real Classic</h3>
-      <p>Just some random text, lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-    <div class="w3-quarter">
-      <img src="https://www.w3schools.com/w3images/croissant.jpg" alt="Croissant" style="width:100%">
-      <h3>Le French</h3>
-      <p>Lorem lorem lorem lorem ipsum text praesent tincidunt ipsum lipsum.</p>
-    </div>
-  </div>
+<?php
 
-  <!-- Pagination -->
-  <div class="w3-center w3-padding-32">
-    <div class="w3-bar">
-      <a href="#" class="w3-bar-item w3-button w3-hover-black">Ver Mas..</a>
-    </div>
-  </div>
+
+
+try {
+   
+  $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
+  // set the PDO error mode to exception
+  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+  $conn->exec("SET CHARACTER SET UTF8");
+  
+  
+  
+  
+    echo '<div class="w3-row-padding w3-padding-16 w3-center" id="food">';
+$sql = "SELECT * FROM publicaciones  WHERE estado=3 ORDER BY id_publicacion DESC LIMIT 4";
+    foreach($conn->query($sql) as $row) {
+      echo '<div class="w3-quarter">
+      <img src="'.$row['img_online'].'" alt="Sandwich" style="width:100%">
+      <h3>'.$row['titulo'].'</h3>
+      <p>'.$row['descripcion'].'</p>
+    </div>';
+    }
+  echo '</div>';
+
+  echo '<div class="w3-row-padding w3-padding-16 w3-center" id="food">';
+$sql = "SELECT * FROM publicaciones  WHERE estado=3 ORDER BY id_publicacion ASC LIMIT 4";
+    foreach($conn->query($sql) as $row) {
+      echo '<div class="w3-quarter">
+      <img src="'.$row['img_online'].'" alt="Sandwich" style="width:100%">
+      <h3>'.$row['titulo'].'</h3>
+      <p>'.$row['descripcion'].strlen($row['descripcion']).'</p>
+    </div>';
+    }
+  echo '</div>';
+  
+  
+  
+
+}
+catch(PDOException $e)
+    {
+    echo $sql . "<br>" . $e->getMessage();
+    }
+$conn = null;
+?>
+
+
   
   <hr id="about">
 
   <!-- About Section -->
   <div class="w3-container w3-padding-32 w3-center">  
-    <h3>About Me, The Food Man</h3><br>
-    <img src="https://www.w3schools.com/w3images/chef.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="800" height="533">
+    <h3>¿Qué hacemos?</h3><br>
+    <img src="https://www.lineadecontraste.com/wp-content/uploads/2020/01/profeco-scaled.jpg" alt="Me" class="w3-image" style="display:block;margin:auto" width="800" height="533">
     <div class="w3-padding-32">
-      <h4><b>I am Who I Am!</b></h4>
-      <h6><i>With Passion For Real, Good Food</i></h6>
-      <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+      <h4><b>Soy consumidor y tengo el poder</b></h4>
+      <p><b>Misión</b><br>
+Empoderar al consumidor mediante la protección efectiva del ejercicio de sus derechos y la confianza ciudadana, promoviendo un consumo razonado, informado, sostenible, seguro y saludable, a fin de corregir injusticias del mercado, fortalecer el mercado interno y el bienestar de la población.
+<br>
+ <b>Visión</b><br>
+Ser una Institución cercana a la gente, efectiva en la protección y defensa de las personas consumidoras, reconocida por su estricto apego a la ley, con capacidad de fomentar la igualdad, la no discriminación, la participación ciudadana, y la educación para un consumo responsable.<br>
+ <b>Historia</b><br>
+En 1976 se promulgó la Ley Federal de Protección al Consumidor (LFPC) y surgió Profeco como la institución encargada de defender los derechos de los consumidores, prevenir abusos y garantizar relaciones de consumo justas. México se convirtió en el primer país latinoamericano en crear una procuraduría y el segundo con una ley en la materia.
+
+Seis años después, en 1982 la institución ya tenía 32 oficinas en las principales ciudades del país. En la actualidad Profeco cuenta con un total de 32 delegaciones y 19 subdelegaciones, lo cual suma un total de 51 oficinas en toda la República.
+</p>
     </div>
   </div>
   <hr>
@@ -392,34 +393,34 @@ span.psw {
   <footer class="w3-row-padding w3-padding-32">
     <div class="w3-third">
       <h3>FOOTER</h3>
-      <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
-      <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+      <p>La Secretaría de Salud Federal, a través de la Dirección General de Epidemiología emite el siguiente informe técnico referente a Coronavirus (COVID-19).</p>
+      <p>Secretaria de Salud <a href="https://www.gob.mx/salud/documentos/coronavirus-covid-19-comunicado-tecnico-diario-238449" target="_blank">VER</a></p>
     </div>
   
     <div class="w3-third">
-      <h3>BLOG POSTS</h3>
+      <h3>POSTS EN TENDENCIA</h3>
       <ul class="w3-ul w3-hoverable">
         <li class="w3-padding-16">
-          <img src="https://www.w3schools.com/w3images/workshop.jpg" class="w3-left w3-margin-right" style="width:50px">
-          <span class="w3-large">Lorem</span><br>
-          <span>Sed mattis nunc</span>
+          <img src="https://www.fao.org/images/homepagelibraries/news/sofa-2021-pr.jpg?sfvrsn=e31060ad_15" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">¿Está en riesgo nuestro suministro de alimentos?</span><br>
+          <span>FAO</span>
         </li>
         <li class="w3-padding-16">
-          <img src="https://www.w3schools.com/w3images/gondol.jpg" class="w3-left w3-margin-right" style="width:50px">
-          <span class="w3-large">Ipsum</span><br>
-          <span>Praes tinci sed</span>
+          <img src="https://www.fao.org/images/homepagelibraries/default-album/sdg-17.png" class="w3-left w3-margin-right" style="width:50px">
+          <span class="w3-large">La FAO y los Objetivos de Desarrollo Sostenible</span><br>
+          <span>FAO</span>
         </li> 
       </ul>
     </div>
 
     <div class="w3-third w3-serif">
-      <h3>POPULAR TAGS</h3>
+      <h3>POPULARES</h3>
       <p>
-        <span class="w3-tag w3-black w3-margin-bottom">Travel</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">New York</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dinner</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Salmon</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">France</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Drinks</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Ideas</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Flavors</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Cuisine</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Chicken</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Dressing</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fried</span>
-        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Fish</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">Duck</span>
+        <span class="w3-tag w3-black w3-margin-bottom">HABITOS</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">CARNES</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">QUESOS</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">SUEÑO</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">DESAYUNO</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">EJERCICIO</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">AGUA</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">AZUCARES</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">HARINAS</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">PAN DULCE</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">REFRESCOS</span> <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">COMIDA RAPIDA</span>
+        <span class="w3-tag w3-dark-grey w3-small w3-margin-bottom">SUEÑO</span> 
       </p>
     </div>
   </footer>

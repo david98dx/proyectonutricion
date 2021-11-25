@@ -12,7 +12,7 @@ $fecha = date("Y-m-d");
             include 'SED.php';
             $modelo = new conexion();
             $conexion = $modelo->get_conexion();
-            $sql="INSERT INTO usuarios (nombre,a_paterno,a_materno,contrasena,correo,f_nacimiento,municipio,ciudad,pais,genero,fecha_regis)VALUES(:nombre,:a_paterno,:a_materno,:contras,:correo,:f_nacimiento,:municipio,:ciudad,:pais,:genero,:fecha_regis)";
+            $sql="INSERT INTO usuarios (nombre,a_paterno,a_materno,contrasena,correo,f_nacimiento,municipio,ciudad,pais,genero,nivel_user,fecha_regis)VALUES(:nombre,:a_paterno,:a_materno,:contras,:correo,:f_nacimiento,:municipio,:ciudad,:pais,:genero,3,:fecha_regis)";
             $claveE=SED::encryption($contras);
             $statement=$conexion->prepare($sql);
 
@@ -29,7 +29,7 @@ $fecha = date("Y-m-d");
            } else {
             $statement->execute(array(":nombre"=>$nombre,":a_paterno"=>$a_paterno,":a_materno"=>$a_materno,":contras"=>$claveE,":correo"=>$correo,":f_nacimiento"=>$f_nacimiento,":municipio"=>$municipio,":ciudad"=>$ciudad,":pais"=>$pais,":genero"=>$genero,":fecha_regis"=>$fecha_hora));
                return '<div class="alert alert-success alert-dismissible fade show">
-               <button type="button" class="close" data-dismiss="alert">&times;</button>
+               <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
                <strong>Registro Exitoso!</strong></div>';
            }
             
@@ -73,12 +73,14 @@ $fecha = date("Y-m-d");
             while ($row = $statement->fetch()){
 
                 $contra_bd=$row['contrasena'];
+                $nivel_user = $row['nivel_user'];
                 $id_user = $row['id_usuario'];
                    $id_nombre = $row['nombre']." ".$row['a_paterno']." ".$row['a_materno'];
             }
             if($contra_bd==$claveD){
                 $_SESSION["id"] = $id_user;
                 $_SESSION["usuario"] = $id_nombre;
+                $_SESSION["nivel_user"] = $nivel_user;
 
                 $sql="INSERT INTO sesiones (id_usuario,inicio)VALUES(:id,:fecha)";
                 $statement=$conexion->prepare($sql);
@@ -89,6 +91,14 @@ $fecha = date("Y-m-d");
                     $statement->execute();
                     while ($row = $statement->fetch()){
                         $_SESSION["sesion"]=$row['id_sesion'];
+                    }
+                    switch($nivel_user){
+                        case 1: header('Location: admin.php');
+                        break;
+                        case 2:
+                        break;
+                        case 3:header('Location: inicio.php');
+                        break;
                     }
                 $acceso=1;
                 }
