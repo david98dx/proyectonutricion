@@ -46,6 +46,46 @@ echo "Por favor completa los campos";
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+
+  <script src="Modelo/expander.js"></script>
+
+
+  <script>
+     $(document).ready(function() {
+		// use esta configuracion simple para valores por defecto
+		//$('div.expandable p').expander();
+		// *** O ***
+		// configure de la siguiente manera
+		$('div.expandable p').expander({
+		slicePoint: 90, // si eliminamos por defecto es 100 caracteres
+		expandText: '[...]', // por defecto es 'read more...'
+		expandPrefix: '&nbsp;', //valor de espacio por defecto es '&hellip; ',
+		collapseTimer: 5000, // tiempo de para cerrar la expanción si desea poner 0 pra no cerrar
+		userCollapseText: '[^]' // por defecto es 'read less...'
+	  });
+
+
+    $("#name").keyup(function(){
+      $("#name").css("background-color", "pink");
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+	});
+
+
+  
+  </script>
 <style>
 body,h1,h2,h3,h4,h5,h6 {font-family: "Karma", sans-serif}
 .w3-bar-block .w3-bar-item {padding:20px}
@@ -170,6 +210,7 @@ span.psw {
      width: 100%;
   }
 }
+
 </style>
 <body>
 
@@ -271,23 +312,23 @@ span.psw {
       <input type="text" id="materno" name="a_materno" placeholder="Apellido Materno" required onKeyUp="document.getElementById(this.id).value=document.getElementById(this.id).value.toUpperCase()">
 
       <label for="email"><b>Email</b></label>
-      <input class="datos" type="email" name="correo" placeholder="Correo" required>
+      <input class="datos" id="email" type="email" name="correo" placeholder="Correo" required>
 
       <label for="psw"><b>Password</b></label>
-      <input type="text" name="contras" placeholder="Contraseña" required>
+      <input type="text" id="contras" name="contras" placeholder="Contraseña" required>
 
       <label for="psw-repeat"><b>Repetir Password</b></label>
-      <input type="text" name="contras2" placeholder="Repetir Contraseña" required>
+      <input type="text" id="contras2" name="contras2" placeholder="Repetir Contraseña" required>
 
       <label for="psw-repeat"><b>Fecha Nacimiento</b></label>
-      <input type="date" name="f_nacimiento" required>
+      <input type="date" id="f_nacimiento" name="f_nacimiento" required>
 
       <label for="psw-repeat"><b>Municipio</b></label>
-      <input type="text" name="municipio" required>
+      <input type="text" id="municipio" name="municipio" required>
       <label for="psw-repeat"><b>Ciudad</b></label>
-      <input type="text" name="ciudad" required>
+      <input type="text" id="ciudad" name="ciudad" required>
       <label for="psw-repeat"><b>Pais</b></label>
-      <input type="text" name="pais" required>
+      <input type="text" id="pais" name="pais" required>
 
       <label for="psw-repeat"><b>Genero</b></label>
       <select name="genero" id="sexo" required>
@@ -314,6 +355,9 @@ span.psw {
     <div class="w3-center w3-padding-16"><img src="iconos/logohorizontal.png" width="300"></div>
   </div>
 </div>
+
+
+
   
 <!-- !PAGE CONTENT! -->
 <div class="w3-main w3-content w3-padding" style="max-width:1200px;margin-top:100px">
@@ -338,7 +382,9 @@ $sql = "SELECT * FROM publicaciones  WHERE estado=3 ORDER BY id_publicacion DESC
       echo '<div class="w3-quarter">
       <img src="'.$row['img_online'].'" alt="Sandwich" style="width:100%">
       <h3>'.$row['titulo'].'</h3>
+      <div class="expandable">
       <p>'.$row['descripcion'].'</p>
+      </div>
     </div>';
     }
   echo '</div>';
@@ -349,7 +395,9 @@ $sql = "SELECT * FROM publicaciones  WHERE estado=3 ORDER BY id_publicacion ASC 
       echo '<div class="w3-quarter">
       <img src="'.$row['img_online'].'" alt="Sandwich" style="width:100%">
       <h3>'.$row['titulo'].'</h3>
-      <p>'.$row['descripcion'].strlen($row['descripcion']).'</p>
+      <div class="expandable">
+      <p>'.$row['descripcion'].'</p>
+      </div>
     </div>';
     }
   echo '</div>';
@@ -364,7 +412,6 @@ catch(PDOException $e)
     }
 $conn = null;
 ?>
-
 
   
   <hr id="about">
